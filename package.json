@@ -37,7 +37,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "./",
+  "homepage": "https://taoxiaofeng.github.io/taoxiaofeng.blog",
   "devDependencies": {
     "gh-pages": "^5.0.0"
   }
