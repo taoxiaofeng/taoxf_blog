@@ -19,7 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": { 
+  "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
@@ -37,5 +37,8 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://taoxiaofeng.github.io/taoxiaofeng.blog"
+  "homepage": "./",
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
+  }
 }
