@@ -1,5 +1,5 @@
 import { Form } from "react-router-dom";
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Contact() {
   const contact = {
     first: "Your",
@@ -13,10 +13,7 @@ export default function Contact() {
   return (
     <div id="contact">
       <div>
-        <img
-          key={contact.avatar}
-          src={contact.avatar || null}
-        />
+        <img key={contact.avatar} src={contact.avatar || undefined} />
       </div>
 
       <div>
@@ -33,10 +30,7 @@ export default function Contact() {
 
         {contact.twitter && (
           <p>
-            <a
-              target="_blank"
-              href={`https://twitter.com/${contact.twitter}`}
-            >
+            <a target="_blank" href={`https://twitter.com/${contact.twitter}`}>
               {contact.twitter}
             </a>
           </p>
@@ -52,11 +46,7 @@ export default function Contact() {
             method="post"
             action="destroy"
             onSubmit={(event) => {
-              if (
-                !confirm(
-                  "Please confirm you want to delete this record."
-                )
-              ) {
+              if (!confirm("Please confirm you want to delete this record.")) {
                 event.preventDefault();
               }
             }}
@@ -69,19 +59,16 @@ export default function Contact() {
   );
 }
 
-function Favorite({ contact }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function Favorite({ contact }: any) {
   // yes, this is a `let` for later
-  let favorite = contact.favorite;
+  const favorite: any = contact.favorite;
   return (
     <Form method="post">
       <button
         name="favorite"
         value={favorite ? "false" : "true"}
-        aria-label={
-          favorite
-            ? "Remove from favorites"
-            : "Add to favorites"
-        }
+        aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
       >
         {favorite ? "★" : "☆"}
       </button>
