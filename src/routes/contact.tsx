@@ -1,14 +1,22 @@
-import { Form } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
+import { getContact } from "../contacts.js";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+export async function loader({ params }: any) {
+  const contact = await getContact(params.contactId);
+  return { contact };
+}
+
 export default function Contact() {
-  const contact = {
-    first: "Your",
-    last: "Name",
-    avatar: "https://placekitten.com/g/200/200",
-    twitter: "your_handle",
-    notes: "Some notes",
-    favorite: true,
-  };
+  const { contact } = useLoaderData() as any;
+  // const contact = {
+  //   first: "Your",
+  //   last: "Name",
+  //   avatar: "https://placekitten.com/g/200/200",
+  //   twitter: "your_handle",
+  //   notes: "Some notes",
+  //   favorite: true,
+  // };
 
   return (
     <div id="contact">
