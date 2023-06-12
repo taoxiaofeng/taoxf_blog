@@ -1,7 +1,7 @@
 {
   "name": "taoxf.blog",
   "private": true,
-  "homepage": "./",
+  "homepage": "https://taoxiaofeng.github.io/taoxf.blog",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -19,7 +19,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.12.1",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "tsc": "^2.0.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
