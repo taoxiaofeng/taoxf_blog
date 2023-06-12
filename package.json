@@ -1,7 +1,7 @@
 {
-  "name": "taoxf.blog",
+  "name": "taoxf_blog",
   "private": true,
-  "homepage": "https://taoxiaofeng.github.io/taoxf.blog",
+  "homepage": "https://taoxiaofeng.github.io/taoxf_blog",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
