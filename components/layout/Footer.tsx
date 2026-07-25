@@ -47,6 +47,21 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/prompts" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors">
+                  Prompt 库
+                </Link>
+              </li>
+              <li>
+                <Link href="/agents" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors">
+                  Agent 库
+                </Link>
+              </li>
+              <li>
+                <Link href="/mcp" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors">
+                  MCP 资源
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors">
                   关于
                 </Link>

@@ -48,9 +48,33 @@ export default function VideoPage({ params }: Props) {
 
   const isBilibili = video.videoUrl.includes('bilibili');
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: video.title,
+    description: video.description,
+    uploadDate: video.date,
+    datePublished: video.date,
+    author: {
+      '@type': 'Person',
+      name: 'Tao Xiaofeng',
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Tao Xiaofeng',
+    },
+    keywords: video.tags.join(', '),
+    inLanguage: 'zh-CN',
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <Header />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
         {/* 返回按钮 */}
