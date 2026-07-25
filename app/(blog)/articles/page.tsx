@@ -75,6 +75,7 @@ export default function ArticlesPage() {
               category={article.category}
               excerpt={article.excerpt}
               cover={article.cover}
+              readingTime={article.readingTime}
             />
           ))}
         </div>

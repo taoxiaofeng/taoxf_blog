@@ -10,6 +10,7 @@ export interface Article {
   cover?: string;
   excerpt: string;
   content: string;
+  readingTime?: number;
 }
 
 export interface Video {
@@ -22,6 +23,7 @@ export interface Video {
   videoUrl: string;
   description: string;
   content: string;
+  readingTime?: number;
 }
 
 function parseFrontmatter(content: string): { metadata: Record<string, any>; content: string } {
@@ -76,6 +78,23 @@ function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
   return arrayOfFiles;
 }
 
+// 计算阅读时间（平均每分钟阅读 200 字）
+export function calculateReadingTime(content: string): number {
+  const wordsPerMinute = 200;
+  // 移除 Markdown 标记，只计算纯文本
+  const plainText = content
+    .replace(/```[\s\S]*?```/g, '') // 移除代码块
+    .replace(/#{1,6}\s/g, '') // 移除标题标记
+    .replace(/[*_~`]/g, '') // 移除强调标记
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // 链接转文本
+    .replace(/![^\]]*\]\([^)]+\)/g, '') // 移除图片
+    .trim();
+  
+  const wordCount = plainText.split(/\s+/).filter(word => word.length > 0).length;
+  const readingTime = Math.ceil(wordCount / wordsPerMinute);
+  return Math.max(1, readingTime); // 至少 1 分钟
+}
+
 export function getArticles(): Article[] {
   const articlesDir = path.join(process.cwd(), 'content/articles');
   const files = getAllFiles(articlesDir);
@@ -95,6 +114,7 @@ export function getArticles(): Article[] {
       cover: metadata.cover || '',
       excerpt: metadata.excerpt || '',
       content: body,
+      readingTime: calculateReadingTime(body),
     };
   }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
@@ -124,6 +144,7 @@ export function getVideos(): Video[] {
       videoUrl: metadata.videoUrl || '',
       description: metadata.description || '',
       content: body,
+      readingTime: calculateReadingTime(body),
     };
   }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }

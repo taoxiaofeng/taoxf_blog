@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { CalendarIcon, TagIcon } from '@heroicons/react/24/outline';
+import { CalendarIcon, TagIcon, ClockIcon } from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 
@@ -16,9 +16,10 @@ interface ArticleCardProps {
   category: string;
   excerpt: string;
   cover?: string;
+  readingTime?: number;
 }
 
-export default function ArticleCard({ slug, title, date, tags, category, excerpt, cover }: ArticleCardProps) {
+export default function ArticleCard({ slug, title, date, tags, category, excerpt, cover, readingTime }: ArticleCardProps) {
   return (
     <motion.article
       className="glass rounded-xl overflow-hidden card-hover"
@@ -58,10 +59,18 @@ export default function ArticleCard({ slug, title, date, tags, category, excerpt
 
           {/* 底部信息 */}
           <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-            {/* 日期 */}
-            <div className="flex items-center space-x-1">
-              <CalendarIcon className="w-4 h-4" />
-              <span>{dayjs(date).format('YYYY-MM-DD')}</span>
+            {/* 日期和阅读时间 */}
+            <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-1">
+                <CalendarIcon className="w-4 h-4" />
+                <span>{dayjs(date).format('YYYY-MM-DD')}</span>
+              </div>
+              {readingTime && (
+                <div className="flex items-center space-x-1">
+                  <ClockIcon className="w-4 h-4" />
+                  <span>{readingTime} 分钟</span>
+                </div>
+              )}
             </div>
 
             {/* 标签 */}

@@ -6,7 +6,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ShareButtons from '@/components/ShareButtons';
 import RelatedArticles from '@/components/RelatedArticles';
-import { CalendarIcon, TagIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { CalendarIcon, TagIcon, ArrowLeftIcon, ClockIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
@@ -113,6 +113,12 @@ export default function ArticlePage({ params }: Props) {
                   <CalendarIcon className="w-5 h-5" />
                   <span>{dayjs(article.date).format('YYYY年MM月DD日')}</span>
                 </div>
+                {article.readingTime && (
+                  <div className="flex items-center space-x-2">
+                    <ClockIcon className="w-5 h-5" />
+                    <span>预计阅读 {article.readingTime} 分钟</span>
+                  </div>
+                )}
                 <div className="flex items-center space-x-2">
                   <TagIcon className="w-5 h-5" />
                   <div className="flex space-x-2">
