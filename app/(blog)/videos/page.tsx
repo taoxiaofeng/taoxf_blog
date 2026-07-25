@@ -78,6 +78,7 @@ export default function VideosPage() {
               description={video.description}
               thumbnail={video.thumbnail}
               videoUrl={video.videoUrl}
+              duration={video.duration}
             />
           ))}
         </div>

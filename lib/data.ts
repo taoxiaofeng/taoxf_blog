@@ -24,6 +24,7 @@ export interface Video {
   description: string;
   content: string;
   readingTime?: number;
+  duration?: string; // 视频时长，例如 "15:30"
 }
 
 function parseFrontmatter(content: string): { metadata: Record<string, any>; content: string } {
@@ -145,6 +146,7 @@ export function getVideos(): Video[] {
       description: metadata.description || '',
       content: body,
       readingTime: calculateReadingTime(body),
+      duration: metadata.duration || '',
     };
   }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }

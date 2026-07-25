@@ -1,5 +1,6 @@
 import { getVideos, getVideoBySlug } from '@/lib/data';
 import MDContent from '@/components/MDContent';
+import Breadcrumb from '@/components/Breadcrumb';
 import ReadingProgress from '@/components/ReadingProgress';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -79,6 +80,7 @@ export default function VideoPage({ params }: Props) {
       />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+        <Breadcrumb />
         {/* 返回按钮 */}
         <Link
           href="/videos"

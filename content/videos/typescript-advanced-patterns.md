@@ -5,6 +5,7 @@ tags: ["TypeScript", "类型系统", "教程"]
 category: "前端开发"
 thumbnail: ""
 videoUrl: "https://www.bilibili.com/video/BV1vA411b7kZ"
+duration: "50:00"
 description: "深入讲解 TypeScript 高级类型、条件类型、映射类型以及在实际项目中的类型设计模式。"
 ---
 

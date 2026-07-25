@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { CalendarIcon, TagIcon, PlayIcon } from '@heroicons/react/24/outline';
+import { CalendarIcon, TagIcon, PlayIcon, ClockIcon } from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 
@@ -17,9 +17,10 @@ interface VideoCardProps {
   description: string;
   thumbnail?: string;
   videoUrl: string;
+  duration?: string;
 }
 
-export default function VideoCard({ slug, title, date, tags, category, description, thumbnail, videoUrl }: VideoCardProps) {
+export default function VideoCard({ slug, title, date, tags, category, description, thumbnail, videoUrl, duration }: VideoCardProps) {
   return (
     <motion.article
       className="glass rounded-xl overflow-hidden card-hover"
@@ -48,6 +49,12 @@ export default function VideoCard({ slug, title, date, tags, category, descripti
               <PlayIcon className="w-7 h-7 text-primary-500 ml-1" />
             </div>
           </div>
+          {/* 视频时长 */}
+          {duration && (
+            <div className="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">
+              {duration}
+            </div>
+          )}
         </div>
 
         {/* 视频内容 */}
@@ -69,10 +76,18 @@ export default function VideoCard({ slug, title, date, tags, category, descripti
 
           {/* 底部信息 */}
           <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-            {/* 日期 */}
-            <div className="flex items-center space-x-1">
-              <CalendarIcon className="w-4 h-4" />
-              <span>{dayjs(date).format('YYYY-MM-DD')}</span>
+            {/* 日期和时长 */}
+            <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-1">
+                <CalendarIcon className="w-4 h-4" />
+                <span>{dayjs(date).format('YYYY-MM-DD')}</span>
+              </div>
+              {duration && (
+                <div className="flex items-center space-x-1">
+                  <ClockIcon className="w-4 h-4" />
+                  <span>{duration}</span>
+                </div>
+              )}
             </div>
 
             {/* 标签 */}

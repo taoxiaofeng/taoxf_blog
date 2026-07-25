@@ -5,6 +5,7 @@ tags: ["Tailwind CSS", "CSS", "教程", "前端开发"]
 category: "前端开发"
 thumbnail: ""
 videoUrl: "https://www.bilibili.com/video/BV1wJ411x7h7"
+duration: "60:00"
 description: "全面讲解 Tailwind CSS v4 的新特性、配置方式、最佳实践，以及如何在 Next.js 项目中集成使用。"
 ---
 

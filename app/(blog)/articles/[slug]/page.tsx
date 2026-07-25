@@ -6,6 +6,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ShareButtons from '@/components/ShareButtons';
 import RelatedArticles from '@/components/RelatedArticles';
+import Breadcrumb from '@/components/Breadcrumb';
 import { CalendarIcon, TagIcon, ArrowLeftIcon, ClockIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import dayjs from 'dayjs';
@@ -81,8 +82,8 @@ export default function ArticlePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-
       <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
+        <Breadcrumb />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 lg:gap-8">
           {/* 文章内容区域 */}
           <div className="lg:col-span-8">

@@ -5,6 +5,7 @@ tags: ["React", "教程"]
 category: "前端开发"
 thumbnail: ""
 videoUrl: "https://www.bilibili.com/video/BV1Kt4y1D7tL"
+duration: "30:00"
 description: "这是一个 React 入门教程视频，适合初学者学习。"
 ---
 

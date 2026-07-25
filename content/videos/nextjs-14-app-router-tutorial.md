@@ -5,6 +5,7 @@ tags: ["Next.js", "React", "教程", "App Router"]
 category: "前端开发"
 thumbnail: ""
 videoUrl: "https://www.bilibili.com/video/BV1GJ411x7h7"
+duration: "45:00"
 description: "全面讲解 Next.js 14 App Router 的核心概念、路由机制、数据获取方式以及迁移策略。"
 ---
 
