@@ -237,3 +237,63 @@ export function getAllCategories(): string[] {
   });
   return Array.from(categories).sort();
 }
+
+// ==================== 算法模块 ====================
+
+export interface Algorithm {
+  slug: string;
+  title: string;
+  date: string;
+  tags: string[];
+  category: string;
+  difficulty: string; // 入门 | 基础 | 进阶 | 深入
+  excerpt: string;
+  content: string;
+  readingTime?: number;
+  visualgoUrl?: string;
+}
+
+export function getAlgorithms(): Algorithm[] {
+  const algorithmsDir = path.join(process.cwd(), 'content/algorithms');
+  
+  if (!fs.existsSync(algorithmsDir)) {
+    return [];
+  }
+  
+  const files = getAllFiles(algorithmsDir);
+  
+  return files.map(filePath => {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const fileName = path.basename(filePath);
+    const slug = fileName.replace(/\.(md|mdx)$/, '');
+    const { metadata, content: body } = parseFrontmatter(content);
+    
+    return {
+      slug,
+      title: metadata.title || '',
+      date: metadata.date || '',
+      tags: metadata.tags || [],
+      category: metadata.category || '算法',
+      difficulty: metadata.difficulty || '入门',
+      excerpt: metadata.excerpt || '',
+      content: body,
+      readingTime: calculateReadingTime(body),
+      visualgoUrl: metadata.visualgoUrl || '',
+    };
+  }).sort((a, b) => {
+    const diffOrder: Record<string, number> = { '入门': 1, '基础': 2, '进阶': 3, '深入': 4 };
+    const aOrder = diffOrder[a.difficulty] || 99;
+    const bOrder = diffOrder[b.difficulty] || 99;
+    if (aOrder !== bOrder) return aOrder - bOrder;
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+  });
+}
+
+export function getAlgorithmBySlug(slug: string): Algorithm | undefined {
+  const algorithms = getAlgorithms();
+  return algorithms.find(a => a.slug === slug);
+}
+
+export function getAllDifficultyLevels(): string[] {
+  return ['入门', '基础', '进阶', '深入'];
+}

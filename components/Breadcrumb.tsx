@@ -34,6 +34,8 @@ export default function Breadcrumb() {
     else if (segment === 'prompts') label = 'Prompt 库';
     else if (segment === 'agents') label = 'Agent 库';
     else if (segment === 'mcp') label = 'MCP 资源';
+    else if (segment === 'algorithms') label = '算法';
+    else if (segment === 'design-patterns') label = '设计模式';
     else if (!isLast) {
       // 其他路径保持原样（slug）
       label = segment;
