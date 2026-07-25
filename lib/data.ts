@@ -39,7 +39,7 @@ function parseFrontmatter(content: string): { metadata: Record<string, any>; con
     const match = line.match(/^(\w+):\s*(.+)$/);
     if (match) {
       const key = match[1];
-      let value = match[2].trim();
+      let value: any = match[2].trim();
       
       // 移除引号
       if (value.startsWith('"') && value.endsWith('"')) {
@@ -51,7 +51,7 @@ function parseFrontmatter(content: string): { metadata: Record<string, any>; con
         try {
           value = JSON.parse(value);
         } catch (e) {
-          value = value.slice(1, -1).split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+          value = value.slice(1, -1).split(',').map((v: string) => v.trim().replace(/^"|"$/g, ''));
         }
       }
       

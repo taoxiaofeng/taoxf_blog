@@ -1,5 +1,9 @@
 {
-  "/(marketing)/about/page": "app/(marketing)/about/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/(marketing)/page": "app/(marketing)/page.js",
   "/(blog)/articles/[slug]/page": "app/(blog)/articles/[slug]/page.js",
-  "/(blog)/articles/page": "app/(blog)/articles/page.js"
+  "/(blog)/articles/page": "app/(blog)/articles/page.js",
+  "/(blog)/videos/page": "app/(blog)/videos/page.js",
+  "/(marketing)/about/page": "app/(marketing)/about/page.js",
+  "/(blog)/videos/[slug]/page": "app/(blog)/videos/[slug]/page.js"
 }

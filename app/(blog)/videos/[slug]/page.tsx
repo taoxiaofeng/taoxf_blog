@@ -2,7 +2,7 @@ import { getVideos, getVideoBySlug } from '@/lib/data';
 import MDContent from '@/components/MDContent';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { CalendarIcon, TagIcon, ArrowLeftIcon, PlayIcon, ExternalLinkIcon } from '@heroicons/react/24/outline';
+import { CalendarIcon, TagIcon, ArrowLeftIcon, PlayIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
@@ -34,8 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: video.title,
       description: video.description,
-      type: 'video',
-      tags: video.tags,
+      type: 'video.other',
     },
   };
 }
@@ -115,7 +114,7 @@ export default function VideoPage({ params }: Props) {
                   rel="noopener noreferrer"
                   className="inline-flex items-center space-x-2 px-6 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
                 >
-                  <ExternalLinkIcon className="w-5 h-5" />
+                  <ArrowTopRightOnSquareIcon className="w-5 h-5" />
                   <span>前往观看视频</span>
                 </a>
               </div>
