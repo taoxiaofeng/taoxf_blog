@@ -1,5 +1,6 @@
 import { getVideos, getVideoBySlug } from '@/lib/data';
 import MDContent from '@/components/MDContent';
+import ReadingProgress from '@/components/ReadingProgress';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { CalendarIcon, TagIcon, ArrowLeftIcon, PlayIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
@@ -69,6 +70,7 @@ export default function VideoPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+      <ReadingProgress />
       <Header />
 
       <script

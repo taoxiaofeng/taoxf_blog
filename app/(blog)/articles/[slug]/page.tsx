@@ -1,5 +1,6 @@
 import { getArticles, getArticleBySlug } from '@/lib/data';
 import MDContent from '@/components/MDContent';
+import ReadingProgress from '@/components/ReadingProgress';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { CalendarIcon, TagIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
@@ -71,6 +72,7 @@ export default function ArticlePage({ params }: Props) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <Header />
+      <ReadingProgress />
 
       <script
         type="application/ld+json"
