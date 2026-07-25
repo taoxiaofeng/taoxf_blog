@@ -4,6 +4,7 @@ import TableOfContents from '@/components/TableOfContents';
 import ReadingProgress from '@/components/ReadingProgress';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import ShareButtons from '@/components/ShareButtons';
 import { CalendarIcon, TagIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import dayjs from 'dayjs';
@@ -133,6 +134,11 @@ export default function ArticlePage({ params }: Props) {
               <MDContent content={article.content} />
             </article>
 
+
+            {/* 分享按钮 */}
+            <div className="mt-8">
+              <ShareButtons title={article.title} slug={article.slug} />
+            </div>
             {/* 文章底部导航 */}
             <div className="mt-8 flex justify-between items-center">
               <Link
