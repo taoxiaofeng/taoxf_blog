@@ -82,8 +82,8 @@ export default function ArticlePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 lg:gap-8">
           {/* 文章内容区域 */}
           <div className="lg:col-span-8">
             {/* 返回按钮 */}
@@ -96,14 +96,14 @@ export default function ArticlePage({ params }: Props) {
             </Link>
 
             {/* 文章头部 */}
-            <article className="glass rounded-2xl p-8 md:p-12">
+            <article className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12">
               {/* 分类 */}
               <span className="inline-block px-4 py-1.5 text-sm font-semibold text-primary-600 dark:text-primary-400 bg-primary-100 dark:bg-primary-900/30 rounded-full mb-4">
                 {article.category}
               </span>
 
               {/* 标题 */}
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+              <h1 className="text-3xl sm:text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4 sm:mb-6">
                 {article.title}
               </h1>
 
@@ -159,7 +159,7 @@ export default function ArticlePage({ params }: Props) {
         </div>
 
       {/* 相关文章 */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-16">
         <RelatedArticles
           currentSlug={article.slug}
           currentTags={article.tags}

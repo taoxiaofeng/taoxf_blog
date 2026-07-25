@@ -18,7 +18,7 @@ export default function ArticlesPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <Header />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
         {/* 页面标题 */}
         <div className="mb-12">
           <h1 className="text-5xl font-bold gradient-text mb-4">文章</h1>
