@@ -156,6 +156,70 @@ export function getVideoBySlug(slug: string): Video | undefined {
   return videos.find(video => video.slug === slug);
 }
 
+export interface DesignPattern {
+  slug: string;
+  title: string;
+  date: string;
+  tags: string[];
+  category: string;
+  patternType: string; // 创建型模式 | 结构型模式 | 行为型模式
+  cover?: string;
+  excerpt: string;
+  content: string;
+  readingTime?: number;
+}
+
+export function getDesignPatterns(): DesignPattern[] {
+  const patternsDir = path.join(process.cwd(), 'content/design-patterns');
+  
+  if (!fs.existsSync(patternsDir)) {
+    return [];
+  }
+  
+  const files = getAllFiles(patternsDir);
+  
+  return files.map(filePath => {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const fileName = path.basename(filePath);
+    const slug = fileName.replace(/\.(md|mdx)$/, '');
+    const { metadata, content: body } = parseFrontmatter(content);
+    
+    return {
+      slug,
+      title: metadata.title || '',
+      date: metadata.date || '',
+      tags: metadata.tags || [],
+      category: metadata.category || '设计模式',
+      patternType: metadata.patternType || '',
+      cover: metadata.cover || '',
+      excerpt: metadata.excerpt || '',
+      content: body,
+      readingTime: calculateReadingTime(body),
+    };
+  }).sort((a, b) => {
+    // 按模式类型排序：创建型 > 结构型 > 行为型
+    const typeOrder: Record<string, number> = { '创建型模式': 1, '结构型模式': 2, '行为型模式': 3 };
+    const aOrder = typeOrder[a.patternType] || 99;
+    const bOrder = typeOrder[b.patternType] || 99;
+    if (aOrder !== bOrder) return aOrder - bOrder;
+    return a.title.localeCompare(b.title, 'zh-CN');
+  });
+}
+
+export function getDesignPatternBySlug(slug: string): DesignPattern | undefined {
+  const patterns = getDesignPatterns();
+  return patterns.find(pattern => pattern.slug === slug);
+}
+
+export function getAllPatternTypes(): string[] {
+  const patterns = getDesignPatterns();
+  const types = new Set<string>();
+  patterns.forEach(pattern => {
+    types.add(pattern.patternType);
+  });
+  return Array.from(types).sort();
+}
+
 export function getAllTags(): string[] {
   const articles = getArticles();
   const tags = new Set<string>();
