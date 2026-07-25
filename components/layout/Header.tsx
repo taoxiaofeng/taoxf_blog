@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import ThemeToggle from '../ThemeToggle';
 
 const navItems = [
@@ -72,6 +72,13 @@ export default function Header() {
 
           {/* Right side */}
           <div className="flex items-center gap-2">
+            <Link
+              href="/search"
+              className="p-2 rounded-lg glass hover:bg-white/80 dark:hover:bg-gray-800/80 transition-colors"
+              title="搜索"
+            >
+              <MagnifyingGlassIcon className="w-5 h-5" />
+            </Link>
             <ThemeToggle />
             
             {/* Mobile menu button */}
@@ -112,6 +119,13 @@ export default function Header() {
                 {item.name}
               </Link>
             ))}
+            <Link
+              href="/search"
+              className="block px-4 py-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              🔍 搜索
+            </Link>
           </nav>
         </motion.div>
       )}
