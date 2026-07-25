@@ -5,10 +5,61 @@ import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import { useState } from 'react';
+import { ClipboardIcon, CheckIcon } from '@heroicons/react/24/outline';
 import 'highlight.js/styles/github-dark.css';
 
 interface MDContentProps {
   content: string;
+}
+
+// 代码块组件（带复制按钮）
+function CodeBlock({ className, children }: { className?: string; children: string }) {
+  const [copied, setCopied] = useState(false);
+  
+  const language = className?.replace('language-', '') || 'code';
+  const code = String(children).replace(/\n$/, '');
+  
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('复制失败:', err);
+    }
+  };
+  
+  return (
+    <div className="relative group my-6">
+      {/* 代码头部 */}
+      <div className="flex items-center justify-between px-4 py-2 bg-gray-800 dark:bg-gray-900 rounded-t-lg border-b border-gray-700">
+        <span className="text-xs text-gray-400 font-mono">{language}</span>
+        <button
+          onClick={handleCopy}
+          className="flex items-center gap-1 px-2 py-1 text-xs text-gray-400 hover:text-white bg-gray-700 hover:bg-gray-600 rounded transition-colors"
+          title={copied ? '已复制' : '复制代码'}
+        >
+          {copied ? (
+            <>
+              <CheckIcon className="w-4 h-4 text-green-400" />
+              <span className="text-green-400">已复制</span>
+            </>
+          ) : (
+            <>
+              <ClipboardIcon className="w-4 h-4" />
+              <span>复制</span>
+            </>
+          )}
+        </button>
+      </div>
+      
+      {/* 代码内容 */}
+      <pre className="!mt-0 rounded-t-none rounded-b-lg overflow-hidden">
+        <code className={className}>{children}</code>
+      </pre>
+    </div>
+  );
 }
 
 export default function MDContent({ content }: MDContentProps) {
@@ -22,6 +73,30 @@ export default function MDContent({ content }: MDContentProps) {
           rehypeHighlight,
         ]}
         components={{
+          pre: ({ children }) => {
+            // 提取代码内容
+            const codeElement = (children as React.ReactElement)?.props?.children;
+            const className = (children as React.ReactElement)?.props?.className;
+            
+            if (codeElement && typeof codeElement === 'string') {
+              return <CodeBlock className={className}>{codeElement}</CodeBlock>;
+            }
+            
+            return <pre className="my-6">{children}</pre>;
+          },
+          code: ({ className, children }) => {
+            // 内联代码（不在 pre 中）
+            if (className?.startsWith('language-')) {
+              // 这会被 pre 组件处理
+              return null;
+            }
+            
+            return (
+              <code className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 text-primary-600 dark:text-primary-400 rounded text-sm font-mono">
+                {children}
+              </code>
+            );
+          },
           h1: ({ children }) => (
             <h1 className="text-4xl font-bold mb-6 mt-8 text-gray-900 dark:text-gray-100">
               {children}
