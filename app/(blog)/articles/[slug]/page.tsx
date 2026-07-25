@@ -5,6 +5,7 @@ import ReadingProgress from '@/components/ReadingProgress';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ShareButtons from '@/components/ShareButtons';
+import RelatedArticles from '@/components/RelatedArticles';
 import { CalendarIcon, TagIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import dayjs from 'dayjs';
@@ -156,6 +157,16 @@ export default function ArticlePage({ params }: Props) {
             <TableOfContents content={article.content} />
           </aside>
         </div>
+
+      {/* 相关文章 */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <RelatedArticles
+          currentSlug={article.slug}
+          currentTags={article.tags}
+          currentCategory={article.category}
+          allArticles={getArticles()}
+        />
+      </div>
       </main>
 
       <Footer />
