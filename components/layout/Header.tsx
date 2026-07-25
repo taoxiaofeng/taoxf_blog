@@ -11,6 +11,7 @@ const navItems = [
   { name: '首页', path: '/' },
   { name: '文章', path: '/articles' },
   { name: '视频', path: '/videos' },
+  { name: '资源', path: '/prompts' },
   { name: '关于', path: '/about' },
 ];
 
