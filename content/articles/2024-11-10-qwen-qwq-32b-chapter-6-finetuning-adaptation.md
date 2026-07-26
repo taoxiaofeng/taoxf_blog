@@ -249,6 +249,7 @@ class ResourceEfficientTrainer:
         self.model = model
         self.batch_size = batch_size
         self.gradient_accumulation_steps = gradient_accumulation_steps
+        self.step_count = 0
         
         # 混合精度训练
         self.scaler = torch.cuda.amp.GradScaler()
@@ -270,7 +271,8 @@ class ResourceEfficientTrainer:
         self.scaler.scale(loss).backward()
         
         # 梯度累积
-        if (batch_step + 1) % self.gradient_accumulation_steps == 0:
+        self.step_count += 1
+        if self.step_count % self.gradient_accumulation_steps == 0:
             # 梯度裁剪
             self.scaler.unscale_(optimizer)
             torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1.0)
@@ -498,4 +500,16 @@ class LegalDomainAdapter:
 
 **版权声明**: 本文基于《通义千问:大模型架构与智能体开发实战》第6章进行原创技术解读,所有代码示例和解读均为作者独立完成,仅供参考学习使用。
 
-**下一篇预告**: [第7章 复杂任务的语义推理与规划](#) — 深入探讨思维链推理、多步任务分解、自反思机制等高级推理技术。
+**下一篇预告**: [第7章 复杂任务的语义推理与规划](/articles/2024-11-15-qwen-qwq-32b-chapter-7-reasoning-planning) — 深入探讨思维链推理、多步任务分解、自反思机制等高级推理技术。
+
+## 系列文章导航
+
+1. [第1章 模型架构精解](/articles/2024-10-15-qwen-qwq-32b-chapter-1-model-architecture)
+2. [第2章 数据管线与对齐](/articles/2024-10-20-qwen-qwq-32b-chapter-2-data-pipeline-alignment)
+3. [第3章 智能体架构](/articles/2024-10-25-qwen-qwq-32b-chapter-3-agent-architecture)
+4. [第4章 推理加速与部署](/articles/2024-10-30-qwen-qwq-32b-chapter-4-inference-deployment)
+5. [第5章 多模态能力](/articles/2024-11-05-qwen-qwq-32b-chapter-5-multimodal-capabilities)
+6. **第6章 微调与自适应** (本文)
+7. [第7章 推理与规划](/articles/2024-11-15-qwen-qwq-32b-chapter-7-reasoning-planning)
+8. [第8-9章 对话与可控性](/articles/2024-11-20-qwen-qwq-32b-chapter-8-9-dialogue-controllability)
+9. [第10-12章 企业级实战](/articles/2024-11-25-qwen-qwq-32b-chapter-10-12-enterprise-practice)

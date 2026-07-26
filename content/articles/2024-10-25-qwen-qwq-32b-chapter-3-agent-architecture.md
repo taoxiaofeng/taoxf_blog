@@ -999,7 +999,7 @@ def demo_role_based_agents():
     writer = Role(
         name="作家",
         description="你是一位 creative writer,擅长文字创作。",
-        skills["创意写作", "文案策划", "内容编辑"],
+        skills=["创意写作", "文案策划", "内容编辑"],
         personality="富有想象力、表达生动"
     )
     
@@ -1369,4 +1369,16 @@ def demo_customer_service():
 
 **版权声明**: 本文基于《通义千问:大模型架构与智能体开发实战》第3章进行原创技术解读,所有代码示例和解读均为作者独立完成,仅供参考学习使用。
 
-**下一篇预告**: [第4章 模型推理加速与高效部署](#) — 深入探讨模型量化、编译优化、分布式推理等部署加速技术。
+**下一篇预告**: [第4章 模型推理加速与高效部署](/articles/2024-10-30-qwen-qwq-32b-chapter-4-inference-deployment) — 深入探讨模型量化、编译优化、分布式推理等部署加速技术。
+
+## 系列文章导航
+
+1. [第1章 模型架构精解](/articles/2024-10-15-qwen-qwq-32b-chapter-1-model-architecture)
+2. [第2章 数据管线与对齐](/articles/2024-10-20-qwen-qwq-32b-chapter-2-data-pipeline-alignment)
+3. **第3章 智能体架构** (本文)
+4. [第4章 推理加速与部署](/articles/2024-10-30-qwen-qwq-32b-chapter-4-inference-deployment)
+5. [第5章 多模态能力](/articles/2024-11-05-qwen-qwq-32b-chapter-5-multimodal-capabilities)
+6. [第6章 微调与自适应](/articles/2024-11-10-qwen-qwq-32b-chapter-6-finetuning-adaptation)
+7. [第7章 推理与规划](/articles/2024-11-15-qwen-qwq-32b-chapter-7-reasoning-planning)
+8. [第8-9章 对话与可控性](/articles/2024-11-20-qwen-qwq-32b-chapter-8-9-dialogue-controllability)
+9. [第10-12章 企业级实战](/articles/2024-11-25-qwen-qwq-32b-chapter-10-12-enterprise-practice)

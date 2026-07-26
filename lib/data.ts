@@ -11,6 +11,8 @@ export interface Article {
   excerpt: string;
   content: string;
   readingTime?: number;
+  series?: string;
+  seriesOrder?: number;
 }
 
 export interface Video {
@@ -116,6 +118,8 @@ export function getArticles(): Article[] {
       excerpt: metadata.excerpt || '',
       content: body,
       readingTime: calculateReadingTime(body),
+      series: metadata.series || '',
+      seriesOrder: metadata.series_order || 0,
     };
   }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
