@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Article } from '@/lib/data';
 import ArticleCard from '@/components/ArticleCard';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
@@ -15,9 +15,31 @@ const ARTICLES_PER_PAGE = 3;
 
 export default function ArticlesList({ articles, tags, categories }: ArticlesListProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(articles.length / ARTICLES_PER_PAGE);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedTag, setSelectedTag] = useState<string>('');
+
+  // 筛选逻辑
+  const filteredArticles = useMemo(() => {
+    return articles.filter(article => {
+      const categoryMatch = !selectedCategory || article.category === selectedCategory;
+      const tagMatch = !selectedTag || article.tags.includes(selectedTag);
+      return categoryMatch && tagMatch;
+    });
+  }, [articles, selectedCategory, selectedTag]);
+
+  const totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
   const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
-  const paginatedArticles = articles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
+  const paginatedArticles = filteredArticles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
+
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(prev => prev === category ? '' : category);
+    setCurrentPage(1);
+  };
+
+  const handleTagClick = (tag: string) => {
+    setSelectedTag(prev => prev === tag ? '' : tag);
+    setCurrentPage(1);
+  };
 
   return (
     <>
@@ -27,13 +49,25 @@ export default function ArticlesList({ articles, tags, categories }: ArticlesLis
         <div className="mb-4">
           <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">分类</h3>
           <div className="flex flex-wrap gap-2">
-            <button className="px-4 py-2 bg-primary-500 text-white rounded-lg text-sm">
+            <button
+              onClick={() => handleCategoryClick('')}
+              className={`px-4 py-2 rounded-lg text-sm transition-colors ${
+                !selectedCategory
+                  ? 'bg-primary-500 text-white'
+                  : 'glass text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white'
+              }`}
+            >
               全部
             </button>
             {categories.map((category) => (
               <button
                 key={category}
-                className="px-4 py-2 glass text-gray-700 dark:text-gray-300 rounded-lg text-sm hover:bg-primary-500 hover:text-white transition-colors"
+                onClick={() => handleCategoryClick(category)}
+                className={`px-4 py-2 rounded-lg text-sm transition-colors ${
+                  selectedCategory === category
+                    ? 'bg-primary-500 text-white'
+                    : 'glass text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white'
+                }`}
               >
                 {category}
               </button>
@@ -45,16 +79,50 @@ export default function ArticlesList({ articles, tags, categories }: ArticlesLis
         <div>
           <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">标签</h3>
           <div className="flex flex-wrap gap-2">
-            {tags.slice(0, 10).map((tag) => (
+            {tags.map((tag) => (
               <button
                 key={tag}
-                className="px-3 py-1 glass text-gray-700 dark:text-gray-300 rounded-full text-xs hover:bg-primary-500 hover:text-white transition-colors"
+                onClick={() => handleTagClick(tag)}
+                className={`px-3 py-1 rounded-full text-xs transition-colors ${
+                  selectedTag === tag
+                    ? 'bg-primary-500 text-white'
+                    : 'glass text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white'
+                }`}
               >
                 #{tag}
               </button>
             ))}
           </div>
         </div>
+
+        {/* 筛选结果提示 */}
+        {(selectedCategory || selectedTag) && (
+          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              筛选结果: <span className="font-semibold text-primary-600 dark:text-primary-400">{filteredArticles.length}</span> 篇文章
+              {selectedCategory && (
+                <span className="ml-2 inline-flex items-center px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded text-xs">
+                  分类: {selectedCategory}
+                </span>
+              )}
+              {selectedTag && (
+                <span className="ml-2 inline-flex items-center px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded text-xs">
+                  标签: {selectedTag}
+                </span>
+              )}
+            </p>
+            <button
+              onClick={() => {
+                setSelectedCategory('');
+                setSelectedTag('');
+                setCurrentPage(1);
+              }}
+              className="text-sm text-primary-600 dark:text-primary-400 hover:underline"
+            >
+              清除筛选
+            </button>
+          </div>
+        )}
       </div>
 
       {/* 文章列表 */}
@@ -114,11 +182,23 @@ export default function ArticlesList({ articles, tags, categories }: ArticlesLis
       )}
 
       {/* 空状态 */}
-      {articles.length === 0 && (
+      {filteredArticles.length === 0 && (
         <div className="text-center py-20">
-          <p className="text-gray-500 dark:text-gray-400 text-lg">
-            暂无文章,敬请期待!
+          <p className="text-gray-500 dark:text-gray-400 text-lg mb-2">
+            没有找到符合条件的文章
           </p>
+          {(selectedCategory || selectedTag) && (
+            <button
+              onClick={() => {
+                setSelectedCategory('');
+                setSelectedTag('');
+                setCurrentPage(1);
+              }}
+              className="text-primary-600 dark:text-primary-400 hover:underline"
+            >
+              清除筛选条件
+            </button>
+          )}
         </div>
       )}
     </>
