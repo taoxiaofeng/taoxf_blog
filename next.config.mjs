@@ -12,7 +12,7 @@ const nextConfig = {
   assetPrefix: process.env.NODE_ENV === 'production' ? '/taoxf_blog' : '',
   trailingSlash: true,
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   typescript: {
     ignoreBuildErrors: false,

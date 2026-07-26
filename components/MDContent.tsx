@@ -48,7 +48,6 @@ SyntaxHighlighter.registerLanguage('swift', swift);
 SyntaxHighlighter.registerLanguage('rust', rust);
 SyntaxHighlighter.registerLanguage('csharp', csharp);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CodeHighlighter = SyntaxHighlighter as any;
 
 // 模块级正则常量（避免每次渲染重复创建）

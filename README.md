@@ -16,9 +16,9 @@
 ## 🚀 技术栈
 
 - **前端框架**: React 18 + TypeScript
-- **构建工具**: Vite 4
+- **构建工具**: Next.js 14
 - **样式方案**: Tailwind CSS 4
-- **路由**: React Router DOM 6
+- **路由**: Next.js App Router
 - **动画**: Framer Motion
 - **3D 渲染**: Three.js + React Three Fiber
 - **Markdown**: React Markdown + Remark/Rehype
@@ -47,7 +47,7 @@ yarn start
 npm start
 ```
 
-访问 http://localhost:5173/taoxf_blog/
+访问 http://localhost:3000/taoxf_blog
 
 ### 构建生产版本
 
@@ -77,7 +77,7 @@ npm run deploy
 
 ### 添加新文章
 
-1. 在 `src/content/articles/` 目录创建新的 Markdown 文件
+1. 在 `content/articles/` 目录创建新的 Markdown 文件
 2. 文件命名格式: `YYYY-MM-DD-slug.md`
 3. 添加 Frontmatter 元数据:
 
@@ -96,7 +96,7 @@ excerpt: "文章摘要"
 
 ### 添加新视频
 
-1. 在 `src/content/videos/` 目录创建新的 Markdown 文件
+1. 在 `content/videos/` 目录创建新的 Markdown 文件
 2. 添加 Frontmatter 元数据:
 
 ```markdown
@@ -115,50 +115,47 @@ description: "视频描述"
 
 ### 自定义主题
 
-编辑 `tailwind.config.js` 修改主题色：
+Tailwind CSS v4 使用 CSS 原生配置，编辑 `app/globals.css` 修改变量：
 
-```javascript
-theme: {
-  extend: {
-    colors: {
-      primary: {
-        // 自定义主题色
-      }
-    }
-  }
+```css
+@theme {
+  --color-primary: #3b82f6;
+  --color-secondary: #8b5cf6;
 }
 ```
 
 ## 📁 项目结构
 
 ```
-src/
-├── components/          # 组件
-│   ├── layout/         # 布局组件
-│   │   ├── Header.tsx
-│   │   ├── Footer.tsx
-│   │   └── RootLayout.tsx
-│   ├── ArticleCard.tsx
-│   ├── MarkdownRenderer.tsx
-│   ├── VideoPlayer.tsx
-│   ├── ParticleBackground.tsx
-│   └── ThemeToggle.tsx
-├── pages/              # 页面
-│   ├── Home.tsx
-│   ├── Articles.tsx
-│   ├── ArticleDetail.tsx
-│   ├── Videos.tsx
-│   ├── VideoDetail.tsx
-│   └── About.tsx
-├── content/            # 内容文件
-│   ├── articles/       # 文章 Markdown
-│   └── videos/         # 视频 Markdown
-├── data/               # 数据管理
-│   └── articles.ts
-├── hooks/              # 自定义 Hooks
-│   └── useTheme.ts
-└── routes/             # 路由配置
-    └── index.tsx
+app/                    # Next.js App Router 页面
+├── (blog)/             # 博客内容分组
+│   ├── algorithms/     # 算法文章
+│   ├── articles/       # 技术文章
+│   ├── design-patterns/ # 设计模式
+│   └── videos/         # 视频内容
+├── (marketing)/        # 营销页面分组
+│   ├── about/          # 关于页面
+│   └── search/         # 搜索页面
+├── (projects)/         # 项目展示
+├── (resources)/        # 资源页面
+│   ├── agents/         # Agent 资源
+│   ├── mcp/            # MCP 资源
+│   └── prompts/        # Prompt 资源
+├── api/                # API 路由
+├── layout.tsx          # 根布局
+├── globals.css         # 全局样式
+└── ...
+components/             # React 组件
+├── layout/             # 布局组件
+├── ui/                 # UI 组件
+├── mdx/                # MDX 渲染组件
+└── ...
+content/                # Markdown 内容文件
+├── articles/           # 文章
+├── videos/             # 视频
+└── design-patterns/    # 设计模式
+lib/                    # 工具函数和数据获取
+└── data.ts             # 内容数据管理
 ```
 
 ## 🎨 设计亮点
@@ -177,7 +174,7 @@ src/
 项目已配置为部署到 GitHub Pages：
 
 - 基础路径: `/taoxf_blog/`
-- 构建输出: `build/`
+- 构建输出: `dist/`
 - 部署命令: `npm run deploy`
 
 ### 环境变量

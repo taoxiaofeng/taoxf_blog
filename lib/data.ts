@@ -87,8 +87,8 @@ export function calculateReadingTime(content: string): number {
     .replace(/```[\s\S]*?```/g, '') // 移除代码块
     .replace(/#{1,6}\s/g, '') // 移除标题标记
     .replace(/[*_~`]/g, '') // 移除强调标记
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, '') // 移除图片
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // 链接转文本
-    .replace(/![^\]]*\]\([^)]+\)/g, '') // 移除图片
     .trim();
   
   const wordCount = plainText.split(/\s+/).filter(word => word.length > 0).length;

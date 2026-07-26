@@ -104,7 +104,7 @@ export default function MCPPage() {
                 什么是 MCP？
               </h2>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                Model Context Protocol（MCP）是由 Anthropic 推出的开放协议，旨在成为 AI 应用与外部世界交互的"USB-C 接口"。
+                Model Context Protocol（MCP）是由 Anthropic 推出的开放协议，旨在成为 AI 应用与外部世界交互的{'"'}USB-C 接口{'"'}。
                 它标准化了 AI 模型与数据源、工具之间的通信方式，让开发者无需为每个集成编写定制代码。
               </p>
               <a

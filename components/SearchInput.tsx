@@ -158,7 +158,7 @@ export default function SearchInput({ items }: SearchInputProps) {
             className="absolute top-full left-0 right-0 mt-2 glass rounded-lg border border-gray-200 dark:border-gray-700 shadow-lg p-6 text-center z-50"
           >
             <p className="text-gray-600 dark:text-gray-400">
-              未找到与 "{query}" 相关的内容
+              未找到与 {'"'}{query}{'"'} 相关的内容
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
               尝试其他关键词搜索

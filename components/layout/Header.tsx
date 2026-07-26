@@ -46,7 +46,7 @@ export default function Header() {
               className="text-2xl font-bold gradient-text"
               whileHover={{ scale: 1.05 }}
             >
-              Tao's Blog
+              Tao{'\''}s Blog
             </motion.div>
           </Link>
 
