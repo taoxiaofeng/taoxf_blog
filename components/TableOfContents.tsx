@@ -18,18 +18,16 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState('');
 
   useEffect(() => {
-    // 从内容中提取标题
-    const headingRegex = /^(#{2,4})\s+(.+)$/gm;
-    const headings: TOCItem[] = [];
-    let match;
-    
-    while ((match = headingRegex.exec(content)) !== null) {
-      const level = match[1].length - 1; // ## -> 2, ### -> 3, #### -> 4
-      const text = match[2].trim();
-      const id = text.toLowerCase().replace(/[^\w\u4e00-\u9fa5]+/g, '-');
-      headings.push({ id, text, level });
-    }
-    
+    // 从已渲染的 DOM 中提取标题（id 由 rehype-slug 生成，保证与锚点一致）
+    const elements = Array.from(
+      document.querySelectorAll('article h2[id], article h3[id], article h4[id]')
+    );
+    const headings: TOCItem[] = elements.map((el) => ({
+      id: el.id,
+      text: el.textContent || '',
+      level: Number(el.tagName.charAt(1)),
+    }));
+
     setToc(headings);
   }, [content]);
 
@@ -59,6 +57,8 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
+      // 同步 URL hash，与正文锚点链接行为一致
+      history.replaceState(null, '', `#${id}`);
     }
   };
 

@@ -238,18 +238,18 @@ export default function MDContent({ content }: MDContentProps) {
               </code>
             );
           },
-          h1: ({ children }) => (
-            <h1 className="text-4xl font-bold mb-6 mt-8 text-gray-900 dark:text-gray-100">
+          h1: ({ node, children, ...props }) => (
+            <h1 {...props} className="text-4xl font-bold mb-6 mt-8 text-gray-900 dark:text-gray-100">
               {children}
             </h1>
           ),
-          h2: ({ children }) => (
-            <h2 className="text-3xl font-bold mb-4 mt-8 text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 pb-2">
+          h2: ({ node, children, ...props }) => (
+            <h2 {...props} className="text-3xl font-bold mb-4 mt-8 text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 pb-2">
               {children}
             </h2>
           ),
-          h3: ({ children }) => (
-            <h3 className="text-2xl font-bold mb-3 mt-6 text-gray-900 dark:text-gray-100">
+          h3: ({ node, children, ...props }) => (
+            <h3 {...props} className="text-2xl font-bold mb-3 mt-6 text-gray-900 dark:text-gray-100">
               {children}
             </h3>
           ),

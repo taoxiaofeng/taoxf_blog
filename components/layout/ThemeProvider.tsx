@@ -39,9 +39,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
     
-    if (document.startViewTransition) {
-      document.startViewTransition(() => {
+    // 页面不可见或快速连续切换时 View Transition 会被中止，需兜底处理
+    if (document.startViewTransition && document.visibilityState === 'visible') {
+      const transition = document.startViewTransition(() => {
         document.documentElement.classList.toggle('dark', newTheme === 'dark');
+      });
+      transition.finished.catch(() => {
+        // 过渡被中止属预期行为（update 回调仍会执行），仅吞掉 rejection
       });
     } else {
       document.documentElement.classList.toggle('dark', newTheme === 'dark');
